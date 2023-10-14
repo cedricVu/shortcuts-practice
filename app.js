@@ -1,4 +1,3 @@
-// app.js
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -45,9 +44,9 @@ app.post('/shortcuts', async (req, res) => {
     try {
         const { error, value: validatedData } = joi.object({
             combination: joi.string().lowercase().max(20).regex(/^\S*$/).message('combination not include white space').required(),
-            description: joi.string().lowercase().max(1024).required(),
+            description: joi.string().max(1024).required(),
             os: joi.string().lowercase().max(20).required(),
-            application: joi.string().max(100).lowercase(),
+            application: joi.string().lowercase().max(100).lowercase(),
         }).validate(req.body);
         if (error) {
             return res.status(400).send(error.details[0].message);
